@@ -29,7 +29,7 @@ Paths: `FOUNDATION` is `/home/vanlaarmi12/Git-Repos/sepps-workshop/sepps-worksho
 
 ## Review focus
 
-1. A user on PSReadLine 2.1.0 (bundled with PowerShell 7.2): one unknown key makes `Set-PSReadLineOption` reject the whole table. Task 3 tests that the prediction keys are only in the guarded call; Task 4 proves in a real `pwsh` that a table with an unknown key is rejected whole, so the split is needed.
+1. A user on PSReadLine 2.1.0 (bundled with PowerShell 7.2): `Set-PSReadLineOption` throws at the first key it does not know and leaves the rest of the table unset (found in Task 4: it is not atomic, the keys before the unknown one are applied). Task 3 tests that the prediction keys are only in the guarded call; Task 4 proves in a real `pwsh` that an unknown key throws, so the split is needed.
 2. A user who dot-sources the script from Windows PowerShell 5.1: it must warn and change nothing, and the warning must be readable. Task 3 tests ASCII, Task 4 runs the script in `powershell.exe`.
 3. A user whose `$PROFILE` runs the theme twice, or script and module both: the result must be the same. Task 4 applies the theme twice before reading back.
 4. A future foundation role that gives one key two foregrounds: the port must fail the build, not pick one. Task 2 tests the error.
@@ -1182,7 +1182,7 @@ git config core.hooksPath .githooks
 # Learnings
 
 - 2026-10-13: PSReadLine stops emitting token colours inside a selection (`Render.cs`, `UpdateColorsIfNecessary`), so `Selection` needs a foreground of its own: the foundation's `selection_text` on the `selection` overlay. `ListPredictionSelected` is drawn under the row and stays a background alone.
-- 2026-10-13: `Set-PSReadLineOption -Colors` rejects its whole table over one unknown key. Keys that a supported PSReadLine version lacks go in a call of their own inside `try`/`catch`.
+- 2026-10-13: `Set-PSReadLineOption -Colors` throws at the first key it does not know and leaves the rest of the table unset; the keys before it are applied, in hashtable order. Keys that a supported PSReadLine version lacks go in a call of their own inside `try`/`catch`.
 - 2026-10-13: Generated PowerShell files stay ASCII: Windows PowerShell 5.1 reads a script without a byte order mark in the ANSI code page, and it is the host that prints the version warning.
 - 2026-10-13: With `-EncodedCommand`, PowerShell may write progress and errors to stderr as CLIXML. A test judges by exit status and stdout.
 ```

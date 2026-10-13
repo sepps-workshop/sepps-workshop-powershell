@@ -88,7 +88,7 @@ Kept from the sibling:
 
 - Without `$PSStyle` (before PowerShell 7.2) the script and the cmdlet print a warning and change nothing.
 - PSReadLine is only touched if it is available.
-- `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.0, and `Set-PSReadLineOption -Colors` rejects its whole table on one unknown key. Those two go in a second call inside `try`/`catch`, so PSReadLine 2.1.0 (bundled with PowerShell 7.2) still gets every other colour.
+- `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.0, and `Set-PSReadLineOption -Colors` throws at the first key it does not know and leaves the rest of the table unset. Those two go in a second call inside `try`/`catch`, so PSReadLine 2.1.0 (bundled with PowerShell 7.2) still gets every other colour.
 - Every `$PSStyle` assignment is wrapped on its own: the property set has grown since 7.2.
 
 The standalone script runs inside `& { … }`, so its helper function does not stay in the session.

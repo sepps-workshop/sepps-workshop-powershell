@@ -27,7 +27,6 @@ const GENERATED =
 
 const indent = (lines, by) => lines.map((line) => (line ? by + line : line));
 
-// Set-PSReadLineOption applies its table as a whole.
 function colorTable(entries) {
   const width = Math.max(...entries.map((entry) => entry.key.length));
   return [
@@ -51,8 +50,8 @@ export function statements(tokens) {
     "if (Get-Module -ListAvailable -Name PSReadLine) {",
     ...indent(colorTable(keys.filter((entry) => !entry.prediction)), "    "),
     "",
-    "    # These keys need PSReadLine 2.2.0, and one unknown key makes",
-    "    # PSReadLine reject the whole table. So they are set on their own.",
+    "    # These keys need PSReadLine 2.2.0, and PSReadLine stops at the first",
+    "    # key it does not know. So they are set on their own.",
     "    try {",
     ...indent(colorTable(keys.filter((entry) => entry.prediction)), "        "),
     "    } catch { }",

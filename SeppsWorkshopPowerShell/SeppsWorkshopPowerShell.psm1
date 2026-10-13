@@ -41,8 +41,8 @@ function Set-SeppsWorkshopTheme {
             Selection          = $PSStyle.Foreground.FromRgb(231, 234, 241) + $PSStyle.Background.FromRgb(27, 31, 37)
         }
 
-        # These keys need PSReadLine 2.2.0, and one unknown key makes
-        # PSReadLine reject the whole table. So they are set on their own.
+        # These keys need PSReadLine 2.2.0, and PSReadLine stops at the first
+        # key it does not know. So they are set on their own.
         try {
             Set-PSReadLineOption -Colors @{
                 ListPredictionSelected = $PSStyle.Background.FromRgb(62, 66, 62)
