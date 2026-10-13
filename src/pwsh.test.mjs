@@ -170,7 +170,11 @@ test(
   { skip: needsLegacy },
   () => {
     const script = quoted(legacy, `themes/${THEME_ID}.ps1`);
-    const result = ps(legacy, `. ${script}\n'after'`);
+    // Strict mode, as some profiles set it: the guard must not trip over it.
+    const result = ps(
+      legacy,
+      `Set-StrictMode -Version Latest\n. ${script}\n'after'`,
+    );
     assert.equal(result.status, 0, result.stdout + result.stderr);
     assert.match(
       result.stdout + result.stderr,

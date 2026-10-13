@@ -82,7 +82,9 @@ test("the prediction keys are in the guarded call and nowhere else", () => {
 
 test("the guard for old PowerShell comes before anything is set", () => {
   const lines = statements(tokens);
-  assert.equal(lines[0], "if (-not $PSStyle) {");
+  // Not `-not $PSStyle`: under strict mode, Windows PowerShell 5.1 throws on
+  // the unknown variable instead of printing the warning.
+  assert.equal(lines[0], "if ($PSVersionTable.PSVersion -lt [version]'7.2') {");
   assert.match(lines[1], /Write-Warning '.*PowerShell 7\.2.*'$/);
   assert.equal(lines[2].trim(), "return");
 });

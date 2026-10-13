@@ -16,7 +16,7 @@ function Set-SeppsWorkshopTheme {
     [CmdletBinding()]
     param()
 
-    if (-not $PSStyle) {
+    if ($PSVersionTable.PSVersion -lt [version]'7.2') {
         Write-Warning 'Sepp''s Workshop needs PowerShell 7.2 or later. Nothing was changed.'
         return
     }

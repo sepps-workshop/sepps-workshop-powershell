@@ -50,7 +50,7 @@ Wait for the user to confirm before proceeding.
 
 ## Bump Version
 
-Run `npm version X.Y.Z --no-git-tag-version`. This updates `"version"` in both `package.json` and `package-lock.json` (the lockfile's root version must match; the tag is created later in the Tag step).
+Run `npm version X.Y.Z --no-git-tag-version --allow-same-version` (the last flag lets the first release keep the version `package.json` already has). This updates `"version"` in both `package.json` and `package-lock.json` (the lockfile's root version must match; the tag is created later in the Tag step).
 
 Run `npm run build` so `ModuleVersion` in the manifest takes the new version. The Gallery reads the version from the manifest, not from `package.json`. Confirm with `grep ModuleVersion SeppsWorkshopPowerShell/SeppsWorkshopPowerShell.psd1`, then run `npm test` once more.
 

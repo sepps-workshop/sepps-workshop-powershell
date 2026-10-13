@@ -86,7 +86,7 @@ One deliberate difference from the sibling: comments are italic, because the fou
 
 Kept from the sibling:
 
-- Without `$PSStyle` (before PowerShell 7.2) the script and the cmdlet print a warning and change nothing.
+- Before PowerShell 7.2 the script prints a warning and changes nothing; the module's manifest refuses to load there. The guard asks for the version, not for `$PSStyle`, so it also works under strict mode in Windows PowerShell 5.1.
 - PSReadLine is only touched if it is available.
 - `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.0, and `Set-PSReadLineOption -Colors` throws at the first key it does not know and leaves the rest of the table unset. Those two go in a second call inside `try`/`catch`, so PSReadLine 2.1.0 (bundled with PowerShell 7.2) still gets every other colour.
 - Every `$PSStyle` assignment is wrapped on its own: the property set has grown since 7.2.
@@ -95,7 +95,7 @@ The standalone script runs inside `& { … }`, so its helper function does not s
 
 ### Not set
 
-Keys with no role in the foundation are not written and are listed in the README: PSReadLine's `ListPredictionTooltip`; `$PSStyle.Formatting.FeedbackName`, `FeedbackText` and `FeedbackAction`; `$PSStyle.FileInfo.Extension`. The ANSI palette belongs to the terminal emulator (the Windows Terminal port), the prompt to the Starship port.
+Keys with no role in the foundation are not written and are listed in the README: PSReadLine's `ListPredictionTooltip`; `$PSStyle.Formatting.FeedbackName`, `FeedbackText` and `FeedbackAction`; `$PSStyle.FileInfo.Extension`; `$PSStyle.Progress.Style`. The ANSI palette belongs to the terminal emulator (the Windows Terminal port), the prompt to the Starship port.
 
 ### Build
 

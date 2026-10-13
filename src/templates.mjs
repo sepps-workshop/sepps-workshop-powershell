@@ -42,7 +42,9 @@ function colorTable(entries) {
 export function statements(tokens) {
   const keys = psreadlineEntries(tokens);
   return [
-    "if (-not $PSStyle) {",
+    // $PSStyle arrived in 7.2. Asking for the version, not for the variable,
+    // also works under strict mode.
+    "if ($PSVersionTable.PSVersion -lt [version]'7.2') {",
     `    Write-Warning '${QUOTED_NAME} needs PowerShell 7.2 or later. Nothing was changed.'`,
     "    return",
     "}",
