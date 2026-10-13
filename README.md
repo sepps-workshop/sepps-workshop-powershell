@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/license-MIT-b2b2b2" alt="MIT license" />
 </p>
 
-One dark colour theme for [PowerShell](https://learn.microsoft.com/powershell/), in the sepp.med colours, with Sunset yellow as the accent. It colours what you type (PSReadLine: syntax highlighting, predictions, the selection) and what PowerShell prints by itself (`$PSStyle`: errors, warnings, table headers, directory listings, the progress bar). There are no variants and nothing to configure: this is the one theme.
+Hi, I’m Sepp, the small blue robot from [sepp.med](https://www.seppmed.com). This is the theme I built for [PowerShell](https://learn.microsoft.com/powershell/): one dark colour theme in the sepp.med colours, with Sunset yellow as the accent. It colours what you type (PSReadLine: syntax highlighting, predictions, the selection) and what PowerShell prints by itself (`$PSStyle`: errors, warnings, table headers, directory listings, the progress bar). There are no variants and nothing to configure: this is the one theme.
 
 The colours come from the [Sepp’s Workshop design system](https://github.com/sepps-workshop/sepps-workshop-design-system), whose build refuses to ship a text colour that fails WCAG AA on its background. That includes the text on a selection and on the selected row of the prediction list.
 
@@ -31,7 +31,7 @@ Clone the repository:
 git clone https://github.com/sepps-workshop/sepps-workshop-powershell.git
 ```
 
-On Windows, clone it to a local drive. PowerShell's default execution policy there, `RemoteSigned`, refuses an unsigned script from a network path, and a folder inside WSL (`\\wsl.localhost\…`) counts as one.
+On Windows, clone it to a local drive. PowerShell's default execution policy there, `RemoteSigned`, refuses an unsigned script from a network path, and a folder inside WSL (`\\wsl.localhost\…`) counts as one. My humans found that out so you do not have to.
 
 The theme is switched on in your profile, the script PowerShell runs at the start of every session. If you have none yet, this creates it:
 
@@ -56,7 +56,7 @@ Import-Module C:\path\to\sepps-workshop-powershell\SeppsWorkshopPowerShell
 Set-SeppsWorkshopTheme
 ```
 
-`Set-SeppsWorkshopTheme` takes no arguments. The module is not on the PowerShell Gallery; it is loaded from your clone.
+`Set-SeppsWorkshopTheme` takes no arguments. Verb, hyphen, noun, as PowerShell tradition demands. The module is not on the PowerShell Gallery; it is loaded from your clone.
 
 ### Update
 
@@ -71,6 +71,8 @@ Run it in the clone. The next session has the new colours.
 Remove the lines from your `$PROFILE`, start a new session and delete the clone.
 
 ## Recommended companions
+
+A shell theme is one layer of several. Here is what goes well with it.
 
 - **Terminal colours**: PowerShell colours the command line and its own output, not the terminal. The theme expects the dark blue terminal background of the design system (`#14284c`, a shade darker than Darkblue) and looks best with the sixteen Sepp’s Workshop ANSI colours. [Sepp’s Workshop for Windows Terminal](https://github.com/sepps-workshop/sepps-workshop-windows-terminal) sets both, and the embedded terminal of [Sepp’s Workshop for VS Code](https://github.com/sepps-workshop/sepps-workshop-vs-code) has them too. Every colour is chosen and checked for that background. On another dark background the selection and the selected prediction will look off, and on a light one the text is hard to read.
 - **Font**: themes cannot ship fonts. The design system recommends [JetBrains Mono](https://www.jetbrains.com/lp/mono/), or [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) if your prompt shows icons.
@@ -122,6 +124,8 @@ MIT. See [LICENSE](./LICENSE).
 
 <img align="right" width="150" src="./images/sepp-recruiting.png" alt="Sepp, the blue robot, holding a sign that reads Be you – with us!" />
 
-sepp.med builds and tests software for places where a bug is more than an inconvenience: medical devices, cars, aircraft. We have been doing it since 1980, as a family-run company in the Nuremberg metropolitan region. If you would rather get the contrast ratio right than argue about it, you might like it here.
+My humans at sepp.med build and test software for places where a bug is more than an inconvenience: medical devices, cars, aircraft. They have been doing it since 1980, as a family-run company in the Nuremberg metropolitan region.
 
-Browse the [open positions](https://www.seppmed.com/career/open-positions/), or send a [speculative application](https://www.seppmed.com/career/speculative-application/) if none of them fits yet. Be you – with us.
+Do you care whether a contrast ratio is 4.4 or 4.5? Did you read this README all the way to the bottom? Then you would get on well with them. Have a look at the [open positions](https://www.seppmed.com/career/open-positions/), or send a [speculative application](https://www.seppmed.com/career/speculative-application/) if none of them fits yet. I will keep the workbench tidy until you arrive.
+
+Be you – with us.
