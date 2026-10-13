@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+
+.superpowers/
+
+# Claude Code — personal files
+.claude/settings.local.json
+.claude/local.md
+.claude/worktrees/

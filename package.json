@@ -1,0 +1,40 @@
+{
+  "name": "sepps-workshop-powershell",
+  "description": "One dark color theme for PowerShell (PSReadLine and $PSStyle) in the sepp.med brand colors. WCAG AA verified.",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "sepp.med gmbh"
+  },
+  "homepage": "https://github.com/sepps-workshop/sepps-workshop-powershell",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sepps-workshop/sepps-workshop-powershell.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sepps-workshop/sepps-workshop-powershell/issues"
+  },
+  "keywords": [
+    "powershell",
+    "pwsh",
+    "psreadline",
+    "theme",
+    "color-theme",
+    "dark-theme",
+    "wcag",
+    "accessibility",
+    "sepps-workshop"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test src/shell-roles.test.mjs src/templates.test.mjs src/pwsh.test.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@sepps-workshop/design-system": "file:../sepps-workshop-design-system",
+    "prettier": "^3.9.10"
+  }
+}

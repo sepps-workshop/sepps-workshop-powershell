@@ -1,0 +1,4 @@
+# The generated files are compared byte for byte with a fresh build, which
+# writes LF. Without this, Git for Windows checks them out with CRLF.
+themes/** text eol=lf
+SeppsWorkshopPowerShell/** text eol=lf
