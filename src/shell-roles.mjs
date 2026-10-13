@@ -4,7 +4,7 @@
 
 import { resolveTarget } from "@sepps-workshop/design-system/tools/build-tokens";
 
-// Added in PSReadLine 2.2.0. The templates send them in a call of their
+// Added in PSReadLine 2.2.2. The templates send them in a call of their
 // own, so 2.1.0 (bundled with PowerShell 7.2) still takes every other key.
 const PREDICTION_KEYS = new Set(["ListPrediction", "ListPredictionSelected"]);
 

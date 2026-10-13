@@ -52,7 +52,7 @@ export function statements(tokens) {
     "if (Get-Module -ListAvailable -Name PSReadLine) {",
     ...indent(colorTable(keys.filter((entry) => !entry.prediction)), "    "),
     "",
-    "    # These keys need PSReadLine 2.2.0, and PSReadLine stops at the first",
+    "    # These keys need PSReadLine 2.2.2, and PSReadLine stops at the first",
     "    # key it does not know. So they are set on their own.",
     "    try {",
     ...indent(colorTable(keys.filter((entry) => entry.prediction)), "        "),

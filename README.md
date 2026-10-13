@@ -20,7 +20,7 @@ PowerShell 7.2 or later. The theme uses `$PSStyle`, which arrived in that releas
 PowerShell 7.2 itself ships PSReadLine 2.1.0, which does not know the two colours of the prediction list. Everything else still applies. To get those two as well, check `(Get-Module PSReadLine).Version` and upgrade:
 
 ```powershell
-Install-Module -Name PSReadLine -MinimumVersion 2.2.0 -Force -SkipPublisherCheck
+Install-Module -Name PSReadLine -MinimumVersion 2.2.2 -Force -SkipPublisherCheck
 ```
 
 ## Install

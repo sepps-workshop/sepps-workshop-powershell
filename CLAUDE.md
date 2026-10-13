@@ -58,7 +58,7 @@ After cloning, run `git config core.hooksPath .githooks` to enable the pre-commi
 - **Resolve role names with `resolveTarget`.** It throws on an unknown name; do not add a fallback.
 - **One set of statements.** The script and the module both render `statements(tokens)`. Change the mapping there, never in one artefact alone.
 - **Generated PowerShell is ASCII.** Windows PowerShell 5.1 reads a script without a byte order mark in the ANSI code page, and it is the host that prints the version warning. In generated files the product is "Sepp's Workshop" with a straight apostrophe.
-- **Version guards.** PowerShell 7.2 is the floor. `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.0 and go in the second, guarded `Set-PSReadLineOption` call. Each `$PSStyle` assignment has its own `try`.
+- **Version guards.** PowerShell 7.2 is the floor. `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.2 and go in the second, guarded `Set-PSReadLineOption` call. Each `$PSStyle` assignment has its own `try`.
 - **The module GUID is permanent.** `MODULE_GUID` in `src/templates.mjs` is the module's identity on the PowerShell Gallery.
 - **Releases go through `/release`.** `Publish-Module` runs in CI on the tag push, never locally.
 - **Verify in a real PowerShell.** The unit tests check strings; only `src/pwsh.test.mjs` shows that PowerShell accepts them.

@@ -66,7 +66,7 @@ test("styles travel with the entry", () => {
   assert.deepEqual(psr.Command.style, []);
 });
 
-test("only the two keys PSReadLine 2.2 added are marked as prediction keys", () => {
+test("only the two keys PSReadLine 2.2.2 added are marked as prediction keys", () => {
   const marked = psreadlineEntries(tokens)
     .filter((e) => e.prediction)
     .map((e) => e.key);

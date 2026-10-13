@@ -72,7 +72,7 @@ The manifest: `ModuleVersion` from `package.json`, `PowerShellVersion = '7.2'`, 
 - any other target is resolved with `resolveTarget` and is a foreground;
 - each style (`italic`, `bold`, `underline`) is put in front of the colour.
 
-When two roles list the same key, one as a background and one as text, the entries are merged into one value; two foregrounds or two backgrounds for one key are an error. `resolveTarget` throws on an unknown name, and the port adds no fallback. Roles without a `psreadline` or `psstyle` key are skipped. Both templates (`src/theme-template.mjs`, `src/module-template.mjs`) render from these two lists, so the script and the module cannot drift. Colours are written as `$PSStyle.Foreground.FromRgb(r, g, b)` and `$PSStyle.Background.FromRgb(r, g, b)`.
+When two roles list the same key, one as a background and one as text, the entries are merged into one value; two foregrounds or two backgrounds for one key are an error. `resolveTarget` throws on an unknown name, and the port adds no fallback. Roles without a `psreadline` or `psstyle` key are skipped. Both artefacts are rendered by `src/templates.mjs` from one list of statements built on these two lists, so the script and the module cannot drift. Colours are written as `$PSStyle.Foreground.FromRgb(r, g, b)` and `$PSStyle.Background.FromRgb(r, g, b)`.
 
 ### Selection
 
@@ -88,10 +88,10 @@ Kept from the sibling:
 
 - Before PowerShell 7.2 the script prints a warning and changes nothing; the module's manifest refuses to load there. The guard asks for the version, not for `$PSStyle`, so it also works under strict mode in Windows PowerShell 5.1.
 - PSReadLine is only touched if it is available.
-- `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.0, and `Set-PSReadLineOption -Colors` throws at the first key it does not know and leaves the rest of the table unset. Those two go in a second call inside `try`/`catch`, so PSReadLine 2.1.0 (bundled with PowerShell 7.2) still gets every other colour.
+- `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.2, and `Set-PSReadLineOption -Colors` throws at the first key it does not know and leaves the rest of the table unset. Those two go in a second call inside `try`/`catch`, so PSReadLine 2.1.0 (bundled with PowerShell 7.2) still gets every other colour.
 - Every `$PSStyle` assignment is wrapped on its own: the property set has grown since 7.2.
 
-The standalone script runs inside `& { … }`, so its helper function does not stay in the session.
+The script defines no function and no variable, so nothing stays in the session; a test checks that.
 
 ### Not set
 
@@ -130,7 +130,7 @@ Import-Module SeppsWorkshopPowerShell
 Set-SeppsWorkshopTheme
 ```
 
-Or without a module: clone the repository and dot-source `themes/sepps-workshop.ps1` from `$PROFILE`. The README says how to create a profile that does not exist yet, names the PowerShell 7.2 requirement and the PSReadLine 2.2.0 note with the upgrade command, and has an uninstall section. Until the first release the Gallery path is described as it will work; the release is the user's step.
+Or without a module: clone the repository and dot-source `themes/sepps-workshop.ps1` from `$PROFILE`. The README says how to create a profile that does not exist yet, names the PowerShell 7.2 requirement and the PSReadLine 2.2.2 note with the upgrade command, and has an uninstall section. Until the first release the Gallery path is described as it will work; the release is the user's step.
 
 ### README
 
@@ -138,7 +138,7 @@ English, no emoji, exact where technical, relaxed elsewhere. Sections: header im
 
 ### Scaffolding
 
-From the Sepp’s Workshop ports, adapted in names and paths: `CLAUDE.md`, `.claude/settings.json` (with PowerShell permissions in place of the fish ones), `.claude/learnings.md`, `.githooks/pre-commit`, `scripts/sync-config-table.sh`, `.gitignore`, `.prettierignore`, `.claudeignore`, `.gitattributes`, `claude.yml` and `claude-code-review.yml`, `LICENSE` (MIT, sepp.med gmbh), `CHANGELOG.md`. The handoff skill is copied from the foundation to `.claude/skills/sepps-workshop/SKILL.md`.
+From the Sepp’s Workshop ports, adapted in names and paths: `CLAUDE.md`, `.claude/settings.json` (without the fish permissions), `.claude/learnings.md`, `.githooks/pre-commit`, `scripts/sync-config-table.sh`, `.gitignore`, `.prettierignore`, `.claudeignore`, `.gitattributes`, `claude.yml` and `claude-code-review.yml`, `LICENSE` (MIT, sepp.med gmbh), `CHANGELOG.md`. The handoff skill is copied from the foundation to `.claude/skills/sepps-workshop/SKILL.md`.
 
 From the Vivid Life sibling: `.github/workflows/publish-to-powershell-gallery.yml` (`Test-ModuleManifest`, then `Publish-Module` on a `v*` tag, with the `PSGALLERY_API_KEY` secret) and the `/release` skill (pre-flight, version bump, rebuild so the manifest takes the version, changelog, commit, tag, push), extended by the GitHub release step the Sepp’s Workshop ports have. No Dependabot file: the other Sepp’s Workshop ports have none.
 
