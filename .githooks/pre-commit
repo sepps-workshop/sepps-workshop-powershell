@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Keep CLAUDE.md config file table in sync.
+bash scripts/sync-config-table.sh
+
+# Scan staged changes for secrets (requires gitleaks; install: brew/apt install gitleaks).
+if command -v gitleaks &>/dev/null; then
+  gitleaks git --pre-commit --staged || exit 1
+fi
