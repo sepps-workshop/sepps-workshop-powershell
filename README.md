@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/license-MIT-b2b2b2" alt="MIT license" />
 </p>
 
-One dark colour theme for [PowerShell](https://learn.microsoft.com/powershell/), in the sepp.med colours, with Sunset yellow as the accent. It colours what you type (PSReadLine: syntax highlighting, predictions, the selection) and what PowerShell prints by itself (`$PSStyle`: errors, warnings, table headers, directory listings). There are no variants and nothing to configure: this is the one theme.
+One dark colour theme for [PowerShell](https://learn.microsoft.com/powershell/), in the sepp.med colours, with Sunset yellow as the accent. It colours what you type (PSReadLine: syntax highlighting, predictions, the selection) and what PowerShell prints by itself (`$PSStyle`: errors, warnings, table headers, directory listings, the progress bar). There are no variants and nothing to configure: this is the one theme.
 
 The colours come from the [Sepp’s Workshop design system](https://github.com/sepps-workshop/sepps-workshop-design-system), whose build refuses to ship a text colour that fails WCAG AA on its background. That includes the text on a selection and on the selected row of the prediction list.
 
@@ -93,7 +93,6 @@ The design system has no role for these, so the theme leaves them at PowerShell'
 - PSReadLine: `ListPredictionTooltip`
 - `$PSStyle.Formatting`: `FeedbackName`, `FeedbackText`, `FeedbackAction`
 - `$PSStyle.FileInfo`: `Extension`
-- `$PSStyle.Progress`: `Style`
 
 If you want one of them styled, set it yourself after the theme's line in your `$PROFILE`.
 

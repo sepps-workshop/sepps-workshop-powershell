@@ -95,7 +95,7 @@ The script defines no function and no variable, so nothing stays in the session;
 
 ### Not set
 
-Keys with no role in the foundation are not written and are listed in the README: PSReadLine's `ListPredictionTooltip`; `$PSStyle.Formatting.FeedbackName`, `FeedbackText` and `FeedbackAction`; `$PSStyle.FileInfo.Extension`; `$PSStyle.Progress.Style`. The ANSI palette belongs to the terminal emulator (the Windows Terminal port), the prompt to the Starship port.
+Keys with no role in the foundation are not written and are listed in the README: PSReadLine's `ListPredictionTooltip`; `$PSStyle.Formatting.FeedbackName`, `FeedbackText` and `FeedbackAction`; `$PSStyle.FileInfo.Extension`. The progress bar was first listed here; the foundation then gained a `progress` role (`accent`, bold) with the path `Progress.Style`. The ANSI palette belongs to the terminal emulator (the Windows Terminal port), the prompt to the Starship port.
 
 ### Build
 
@@ -140,7 +140,7 @@ English, no emoji, exact where technical, relaxed elsewhere. Sections: header im
 
 From the Sepp’s Workshop ports, adapted in names and paths: `CLAUDE.md`, `.claude/settings.json` (without the fish permissions), `.claude/learnings.md`, `.githooks/pre-commit`, `scripts/sync-config-table.sh`, `.gitignore`, `.prettierignore`, `.claudeignore`, `.gitattributes`, `claude.yml` and `claude-code-review.yml`, `LICENSE` (MIT, sepp.med gmbh), `CHANGELOG.md`. The handoff skill is copied from the foundation to `.claude/skills/sepps-workshop/SKILL.md`.
 
-From the Vivid Life sibling: `.github/workflows/publish-to-powershell-gallery.yml` (`Test-ModuleManifest`, then `Publish-Module` on a `v*` tag, with the `PSGALLERY_API_KEY` secret) and the `/release` skill (pre-flight, version bump, rebuild so the manifest takes the version, changelog, commit, tag, push), extended by the GitHub release step the Sepp’s Workshop ports have. No Dependabot file: the other Sepp’s Workshop ports have none.
+From the Vivid Life sibling: `.github/workflows/publish-to-powershell-gallery.yml` (`Test-ModuleManifest`, then `Publish-Module` on a `v*` tag, with the `PSGALLERY_API_KEY` secret) and the `/release` skill (pre-flight, version bump, rebuild so the manifest takes the version, changelog, commit, tag, push), extended by the GitHub release step the Sepp’s Workshop ports have. Added later on the user's request, in every Sepp’s Workshop repository: the two Claude workflows pin `claude-code-action` to a commit, and a Dependabot file keeps the pinned actions current.
 
 `package.json` is private, MIT, version `0.1.0`, with `@sepps-workshop/design-system` and Prettier as the only dev dependencies.
 

@@ -51,3 +51,4 @@ try { $PSStyle.Formatting.CustomTableHeaderLabel = $PSStyle.Bold + $PSStyle.Fore
 try { $PSStyle.FileInfo.Directory = $PSStyle.Bold + $PSStyle.Foreground.FromRgb(251, 186, 0) } catch { }
 try { $PSStyle.FileInfo.SymbolicLink = $PSStyle.Foreground.FromRgb(242, 148, 82) } catch { }
 try { $PSStyle.FileInfo.Executable = $PSStyle.Foreground.FromRgb(162, 209, 130) } catch { }
+try { $PSStyle.Progress.Style = $PSStyle.Bold + $PSStyle.Foreground.FromRgb(251, 186, 0) } catch { }
