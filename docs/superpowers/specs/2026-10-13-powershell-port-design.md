@@ -13,6 +13,7 @@ Blueprints: `vivid-life-powershell` for the PowerShell mechanics (the two instal
 1. The foundation is extended first: `shell_roles` gains the roles and the key list for `$PSStyle` (see "Foundation change"). The port ships only after that release.
 2. Both install paths of the Vivid Life sibling: the module `SeppsWorkshopPowerShell` with one cmdlet, `Set-SeppsWorkshopTheme`, and the standalone script `themes/sepps-workshop.ps1`.
 3. The role table below, which follows the Vivid Life mapping.
+4. Selected text gets a foreground from the foundation, the new role `selection_text` (see "Selection").
 
 ## Foundation change (`sepps-workshop-design-system`, 0.10.0)
 
@@ -38,6 +39,8 @@ A shell role may carry a third key list, `psstyle`. Each entry is a property pat
 | `executable`     | `semantic.success` |       | `FileInfo.Executable`                                         |
 
 `error` keeps its fish variables and its PSReadLine key and gains the list. The nine other roles are new and list `psstyle` only.
+
+One more role, `selection_text` (`fg`), lists the PSReadLine key `Selection`, which the `selection` role already lists as a background. Gate 2 reads a role named `<overlay role>_*` as text on that overlay, so `selection_text` is checked on `overlay.selection` over `surface.bg_terminal` without a new rule. It lists no fish variable: fish keeps the syntax colours on a selection.
 
 Also in the foundation:
 
@@ -69,12 +72,15 @@ The manifest: `ModuleVersion` from `package.json`, `PowerShellVersion = '7.2'`, 
 - any other target is resolved with `resolveTarget` and is a foreground;
 - each style (`italic`, `bold`, `underline`) is put in front of the colour.
 
-`resolveTarget` throws on an unknown name, and the port adds no fallback. Roles without a `psreadline` or `psstyle` key are skipped. Both templates (`src/theme-template.mjs`, `src/module-template.mjs`) render from these two lists, so the script and the module cannot drift. Colours are written as `$PSStyle.Foreground.FromRgb(r, g, b)` and `$PSStyle.Background.FromRgb(r, g, b)`; the conversion from the token's hex string lives in `src/rgb.mjs`.
+When two roles list the same key, one as a background and one as text, the entries are merged into one value; two foregrounds or two backgrounds for one key are an error. `resolveTarget` throws on an unknown name, and the port adds no fallback. Roles without a `psreadline` or `psstyle` key are skipped. Both templates (`src/theme-template.mjs`, `src/module-template.mjs`) render from these two lists, so the script and the module cannot drift. Colours are written as `$PSStyle.Foreground.FromRgb(r, g, b)` and `$PSStyle.Background.FromRgb(r, g, b)`.
 
-Two consequences differ from the Vivid Life sibling, because the foundation says so:
+### Selection
 
-- `Selection` and `ListPredictionSelected` are a background only. The syntax colours stay on top of it, and gate 2 checks them there. Vivid Life sets a foreground too, on the assumption that PSReadLine replaces the rendering of the span. PSReadLine's own default for `ListPredictionSelected` is a background alone. This is checked in a real `pwsh` during implementation; if the text on a selection does not keep its colours, work stops and the question goes back to the user (the likely fix is a foreground in the foundation).
-- Comments are italic.
+PSReadLine stops emitting token colours inside a selection (`Render.cs`: `UpdateColorsIfNecessary` writes nothing while `inSelectedRegion`). With a background alone, the selected text would take the colour of whichever token the selection starts in. So `Selection` is `selection_text` on `selection`: one foreground on the overlay, as in the Vivid Life sibling.
+
+`ListPredictionSelected` is different: PSReadLine puts it under the row and draws the row's own colours (`ListPrediction`, `Emphasis`) on top. It stays a background alone, which is also PSReadLine's default shape. The foundation already gates `fg`, `fg_muted` and `accent` on that row.
+
+One deliberate difference from the sibling: comments are italic, because the foundation says so.
 
 ### Version guards
 
