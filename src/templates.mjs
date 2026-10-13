@@ -12,7 +12,8 @@ import { psreadlineEntries, psstyleEntries, psValue } from "./shell-roles.mjs";
 export const THEME_ID = "sepps-workshop";
 export const MODULE_NAME = "SeppsWorkshopPowerShell";
 export const FUNCTION_NAME = "Set-SeppsWorkshopTheme";
-// The PowerShell Gallery identifies the module by this. Never regenerate it.
+// The module's identity, also on the PowerShell Gallery should it ever be
+// published there. Never regenerate it.
 export const MODULE_GUID = "24a11770-ee2f-4732-9eb5-8f6b14a6e157";
 const HOMEPAGE = "https://github.com/sepps-workshop/sepps-workshop-powershell";
 

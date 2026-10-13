@@ -1,12 +1,12 @@
 ---
 name: release
-description: Release skill for sepps-workshop-powershell — bumps version, rebuilds the module manifest, updates CHANGELOG, commits, tags, pushes, and creates a GitHub release; CI runs Publish-Module to the PowerShell Gallery. Use only when intentionally cutting a release.
+description: Release skill for sepps-workshop-powershell — bumps version, rebuilds the module manifest, updates CHANGELOG, commits, tags, pushes, and creates a GitHub release. There is no package registry for this port; the GitHub Release is the only release surface. Use only when intentionally cutting a release.
 disable-model-invocation: true
 ---
 
 # Release Skill — sepps-workshop-powershell
 
-The module `SeppsWorkshopPowerShell` is published on the PowerShell Gallery. The tag push triggers `.github/workflows/publish-to-powershell-gallery.yml`, which runs `Publish-Module` on the committed `SeppsWorkshopPowerShell/` folder with the `PSGALLERY_API_KEY` repository secret. Never run `Publish-Module` locally: the API key stays in CI, and a published version cannot be replaced.
+This port has no package registry: the theme is installed from a clone, and the module is not on the PowerShell Gallery. "Release" here means: a tagged commit plus a GitHub Release, so anyone opening the repo on GitHub can see there's a new version without having to `git pull` and diff themselves.
 
 Runs the full release sequence: pre-flight → version bump → manifest rebuild → CHANGELOG update → commit → tag → push → GitHub release.
 
@@ -20,7 +20,6 @@ Run all checks before doing anything else. Stop and report clearly if any fail.
 - Verify tests pass: `npm test` must exit without error, and no test may be skipped — the integration tests need a real PowerShell 7
 - Verify the dependency: `package.json` must name `@sepps-workshop/design-system` by version, not by a local path
 - Verify formatting: `npm run format:check` must exit without error
-- Verify the secret: `gh secret list` must name `PSGALLERY_API_KEY`. Without it the tag would be pushed and the publication would fail
 
 ## CHANGELOG Check
 
@@ -52,7 +51,7 @@ Wait for the user to confirm before proceeding.
 
 Run `npm version X.Y.Z --no-git-tag-version --allow-same-version` (the last flag lets the first release keep the version `package.json` already has). This updates `"version"` in both `package.json` and `package-lock.json` (the lockfile's root version must match; the tag is created later in the Tag step).
 
-Run `npm run build` so `ModuleVersion` in the manifest takes the new version. The Gallery reads the version from the manifest, not from `package.json`. Confirm with `grep ModuleVersion SeppsWorkshopPowerShell/SeppsWorkshopPowerShell.psd1`, then run `npm test` once more.
+Run `npm run build` so `ModuleVersion` in the manifest takes the new version. The module's version is the one in the manifest, not the one in `package.json`. Confirm with `grep ModuleVersion SeppsWorkshopPowerShell/SeppsWorkshopPowerShell.psd1`, then run `npm test` once more.
 
 ## Update CHANGELOG
 
@@ -95,8 +94,6 @@ git tag -a vX.Y.Z -m "Version X.Y.Z"
 git push && git push --tags
 ```
 
-The tag push starts the publish workflow.
-
 ## Create GitHub Release
 
 Extract the release notes from the CHANGELOG section just written and create the release, in one shell call:
@@ -110,14 +107,10 @@ gh release create "v${VERSION}" \
   --notes-file "$NOTES"
 ```
 
-The Gallery publication runs in CI, independently of this step.
+This is the actual publication step for this repo — there is no CI workflow or registry to wait on. The release becomes visible immediately in the repo's sidebar and to anyone watching the repo for releases.
 
 ## Confirm
 
 Report to the user:
 
 > Tag vX.Y.Z pushed and release published: https://github.com/sepps-workshop/sepps-workshop-powershell/releases/tag/vX.Y.Z
->
-> Monitor the publish run at: https://github.com/sepps-workshop/sepps-workshop-powershell/actions
->
-> The Gallery listing usually updates within a few minutes of the workflow completing: https://www.powershellgallery.com/packages/SeppsWorkshopPowerShell

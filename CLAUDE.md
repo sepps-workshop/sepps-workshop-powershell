@@ -4,22 +4,21 @@ PowerShell port of the [Sepp’s Workshop design system](https://github.com/sepp
 
 ## Key Config Files
 
-| File                                                  | Purpose                                                                                                                  |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `.claude/learnings.md`                                | One-line corrections from past sessions; appended to, never rewritten                                                    |
-| `.claude/settings.json`                               | Permissions, secret-file guard, PostToolUse Prettier hook, env defaults                                                  |
-| `.claude/skills/release/SKILL.md`                     | `/release` skill: version bump → manifest rebuild → CHANGELOG → tag → push → GitHub release; CI publishes to the Gallery |
-| `.claude/skills/sepps-workshop/SKILL.md`              | Port-side skill: how to read foundation tokens; copied from the foundation's `handoff/`                                  |
-| `.claudeignore`                                       | Paths Claude Code should skip when indexing (`node_modules/`, generated output)                                          |
-| `.githooks/pre-commit`                                | Runs sync-config-table.sh and gitleaks on every commit                                                                   |
-| `.github/workflows/claude-code-review.yml`            | Auto-reviews PRs with Claude on open/synchronize                                                                         |
-| `.github/workflows/claude.yml`                        | Responds to `@claude` mentions in issues, PRs, and review comments                                                       |
-| `.github/workflows/publish-to-powershell-gallery.yml` | `Publish-Module` on a `v*` tag push (needs the `PSGALLERY_API_KEY` secret)                                               |
-| `.gitignore`                                          | Git ignore patterns                                                                                                      |
-| `.prettierignore`                                     | Paths Prettier must skip: generated `themes/`, `SeppsWorkshopPowerShell/` and `images/`                                  |
-| `build.mjs`                                           | Reads foundation tokens, emits the script, the module and its manifest, and copies the README images                     |
-| `package.json`                                        | npm scripts (`build`, `test`, `format`) and the design-system devDependency                                              |
-| `scripts/sync-config-table.sh`                        | Keeps this table in sync with the filesystem (called by pre-commit)                                                      |
+| File                                       | Purpose                                                                                              |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `.claude/learnings.md`                     | One-line corrections from past sessions; appended to, never rewritten                                |
+| `.claude/settings.json`                    | Permissions, secret-file guard, PostToolUse Prettier hook, env defaults                              |
+| `.claude/skills/release/SKILL.md`          | `/release` skill: version bump → manifest rebuild → CHANGELOG → tag → push → GitHub release          |
+| `.claude/skills/sepps-workshop/SKILL.md`   | Port-side skill: how to read foundation tokens; copied from the foundation's `handoff/`              |
+| `.claudeignore`                            | Paths Claude Code should skip when indexing (`node_modules/`, generated output)                      |
+| `.githooks/pre-commit`                     | Runs sync-config-table.sh and gitleaks on every commit                                               |
+| `.github/workflows/claude-code-review.yml` | Auto-reviews PRs with Claude on open/synchronize                                                     |
+| `.github/workflows/claude.yml`             | Responds to `@claude` mentions in issues, PRs, and review comments                                   |
+| `.gitignore`                               | Git ignore patterns                                                                                  |
+| `.prettierignore`                          | Paths Prettier must skip: generated `themes/`, `SeppsWorkshopPowerShell/` and `images/`              |
+| `build.mjs`                                | Reads foundation tokens, emits the script, the module and its manifest, and copies the README images |
+| `package.json`                             | npm scripts (`build`, `test`, `format`) and the design-system devDependency                          |
+| `scripts/sync-config-table.sh`             | Keeps this table in sync with the filesystem (called by pre-commit)                                  |
 
 ## Commands
 
@@ -37,7 +36,7 @@ After cloning, run `git config core.hooksPath .githooks` to enable the pre-commi
 - `src/templates.mjs` — `statements(tokens)`, the PowerShell lines both artefacts share, and `buildTheme`, `buildModule`, `buildManifest` around them
 - `src/shell-roles.test.mjs`, `src/templates.test.mjs` — unit tests; expected values come from the tokens
 - `src/pwsh.test.mjs` — applies the built script and module in PowerShell 7 with `-NoProfile` and reads every colour back; runs the script in Windows PowerShell 5.1
-- `themes/` and `SeppsWorkshopPowerShell/` — **generated**, committed (a clone and the Gallery install them as they are)
+- `themes/` and `SeppsWorkshopPowerShell/` — **generated**, committed (a clone installs them as they are)
 - `images/` — **generated**: copied by the build from the foundation's `assets/`
 
 ## References
@@ -59,8 +58,8 @@ After cloning, run `git config core.hooksPath .githooks` to enable the pre-commi
 - **One set of statements.** The script and the module both render `statements(tokens)`. Change the mapping there, never in one artefact alone.
 - **Generated PowerShell is ASCII.** Windows PowerShell 5.1 reads a script without a byte order mark in the ANSI code page, and it is the host that prints the version warning. In generated files the product is "Sepp's Workshop" with a straight apostrophe.
 - **Version guards.** PowerShell 7.2 is the floor. `ListPrediction` and `ListPredictionSelected` need PSReadLine 2.2.2 and go in the second, guarded `Set-PSReadLineOption` call. Each `$PSStyle` assignment has its own `try`.
-- **The module GUID is permanent.** `MODULE_GUID` in `src/templates.mjs` is the module's identity on the PowerShell Gallery.
-- **Releases go through `/release`.** `Publish-Module` runs in CI on the tag push, never locally.
+- **The module GUID is permanent.** `MODULE_GUID` in `src/templates.mjs` is the module's identity.
+- **Releases go through `/release`.** A release is a tag plus a GitHub Release. The module is not on the PowerShell Gallery: the user decided on 2026-10-13 to stay with the install from a clone, because the Gallery needs a personal Microsoft account. Do not add a publish workflow without asking.
 - **Verify in a real PowerShell.** The unit tests check strings; only `src/pwsh.test.mjs` shows that PowerShell accepts them.
 - **Scope.** PowerShell colours the command line and its own output. The ANSI palette belongs to the terminal port, the prompt to the Starship port.
 - **Determinism.** Same tokens in, byte-identical output. `npm test` fails if `themes/`, `SeppsWorkshopPowerShell/` or `images/` is stale.

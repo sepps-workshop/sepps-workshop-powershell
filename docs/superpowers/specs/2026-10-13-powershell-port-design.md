@@ -1,6 +1,8 @@
 # Sepp’s Workshop for PowerShell: design
 
-Date: 2026-10-13. Status: awaiting review.
+Date: 2026-10-13. Status: implemented.
+
+**Changed after implementation (2026-10-13):** the module is not published on the PowerShell Gallery. The Gallery needs a personal Microsoft account, and the user decided that this is too much for now. The theme is installed from a clone, as a script or as the module loaded by path. The publish workflow is removed and the release skill ends with a GitHub Release. Where the text below speaks of the Gallery, it describes the original plan.
 
 ## Goal
 

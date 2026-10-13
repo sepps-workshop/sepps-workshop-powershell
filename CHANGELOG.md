@@ -7,5 +7,5 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - The Sepp’s Workshop theme for PowerShell: the PSReadLine colours of the command line and the `$PSStyle` colours of PowerShell's output and progress bar, built from the shell roles of `@sepps-workshop/design-system`.
-- Two ways to install it: the module `SeppsWorkshopPowerShell` with `Set-SeppsWorkshopTheme`, and the standalone script `themes/sepps-workshop.ps1`.
+- Installed from a clone: the script `themes/sepps-workshop.ps1` to dot-source, or the module `SeppsWorkshopPowerShell` with `Set-SeppsWorkshopTheme`.
 - Tests that derive every expected value from the design system and apply the built theme in a real PowerShell.

@@ -25,46 +25,50 @@ Install-Module -Name PSReadLine -MinimumVersion 2.2.2 -Force -SkipPublisherCheck
 
 ## Install
 
-Both ways end in your profile, the script PowerShell runs at the start of every session. If you have none yet, this creates it:
-
-```powershell
-if (-not (Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
-```
-
-### From the PowerShell Gallery
-
-```powershell
-Install-Module -Name SeppsWorkshopPowerShell -Scope CurrentUser
-```
-
-Then add two lines to your `$PROFILE`:
-
-```powershell
-Import-Module SeppsWorkshopPowerShell
-Set-SeppsWorkshopTheme
-```
-
-`Set-SeppsWorkshopTheme` takes no arguments. To update, run `Update-Module SeppsWorkshopPowerShell`.
-
-### As a script, without a module
-
 Clone the repository:
 
 ```powershell
 git clone https://github.com/sepps-workshop/sepps-workshop-powershell.git
 ```
 
-Then dot-source the script from your `$PROFILE`, with the path of your clone:
+On Windows, clone it to a local drive. PowerShell's default execution policy there, `RemoteSigned`, refuses an unsigned script from a network path, and a folder inside WSL (`\\wsl.localhost\…`) counts as one.
+
+The theme is switched on in your profile, the script PowerShell runs at the start of every session. If you have none yet, this creates it:
+
+```powershell
+if (-not (Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
+```
+
+Then dot-source the theme from your `$PROFILE`, with the path of your clone:
 
 ```powershell
 . C:\path\to\sepps-workshop-powershell\themes\sepps-workshop.ps1
 ```
 
-You do not need Node.js: the script is already built. To update, run `git pull` in the clone.
+Start a new session, and that is it. You do not need Node.js: the script is already built.
+
+### As a module
+
+The clone also holds the same theme as a module, if you would rather call a command than dot-source a file. In your `$PROFILE`:
+
+```powershell
+Import-Module C:\path\to\sepps-workshop-powershell\SeppsWorkshopPowerShell
+Set-SeppsWorkshopTheme
+```
+
+`Set-SeppsWorkshopTheme` takes no arguments. The module is not on the PowerShell Gallery; it is loaded from your clone.
+
+### Update
+
+```powershell
+git pull
+```
+
+Run it in the clone. The next session has the new colours.
 
 ### Uninstall
 
-Remove the lines from your `$PROFILE` and start a new session. Then run `Uninstall-Module SeppsWorkshopPowerShell`, or delete the clone.
+Remove the lines from your `$PROFILE`, start a new session and delete the clone.
 
 ## Recommended companions
 
