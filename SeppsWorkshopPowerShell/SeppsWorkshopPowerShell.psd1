@@ -1,6 +1,6 @@
 @{
     RootModule        = 'SeppsWorkshopPowerShell.psm1'
-    ModuleVersion     = '0.1.1'
+    ModuleVersion     = '0.2.0'
     GUID              = '24a11770-ee2f-4732-9eb5-8f6b14a6e157'
     Author            = 'sepp.med gmbh'
     CompanyName       = 'sepp.med gmbh'
