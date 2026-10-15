@@ -87,7 +87,7 @@ A few things follow from the palette and are deliberate:
 
 - Commands are cyan-blue, not the accent: the cursor is already yellow, and a typed command is a call.
 - Comments and inline predictions share a colour. Comments are italic, which tells them apart.
-- A selection darkens the background and draws its text in one colour. PSReadLine does not keep syntax colours inside a selection, so the theme does not pretend it does.
+- A selection is a light Sunset tint and draws its text in one colour, the plain text colour, at 7:1. PSReadLine does not keep syntax colours inside a selection, so the theme does not pretend it does.
 - The selected row of the prediction list gets a background only; its text keeps its own colours.
 - Red is a signal only: errors, on the command line and in the output.
 - PowerShell cannot blend colours, so the backgrounds of the selection and of the selected prediction are computed for that terminal background.

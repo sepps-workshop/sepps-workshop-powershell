@@ -26,7 +26,7 @@ if (Get-Module -ListAvailable -Name PSReadLine) {
         ContinuationPrompt = $PSStyle.Foreground.FromRgb(158, 173, 199)
         Error              = $PSStyle.Foreground.FromRgb(255, 137, 123)
         Emphasis           = $PSStyle.Foreground.FromRgb(251, 186, 0)
-        Selection          = $PSStyle.Foreground.FromRgb(231, 234, 241) + $PSStyle.Background.FromRgb(27, 31, 37)
+        Selection          = $PSStyle.Foreground.FromRgb(231, 234, 241) + $PSStyle.Background.FromRgb(78, 77, 57)
     }
 
     # These keys need PSReadLine 2.2.2, and PSReadLine stops at the first
